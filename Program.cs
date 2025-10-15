@@ -1,3 +1,15 @@
+/*
+ * Program.cs - Application Configuration and Startup
+ * 
+ * References:
+ * Microsoft Corporation (2024). ASP.NET Core Razor Pages. Available at: https://docs.microsoft.com/en-us/aspnet/core/razor-pages/
+ * Troelsen, A. & Japikse, P. (2022). Pro C# 10 with .NET 6. Apress.
+ * Microsoft Corporation (2024). Entity Framework Core. Available at: https://docs.microsoft.com/en-us/ef/core/
+ * 
+ * AI Assistance: Dependency injection configuration and database initialization patterns provided by AI assistant.
+ * Student implementation: Service registration, middleware configuration, and application architecture.
+ */
+
 using Microsoft.EntityFrameworkCore;
 using MunicipalServicesApp.Data;
 using MunicipalServicesApp.Managers;
@@ -5,7 +17,6 @@ using MunicipalServicesApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddSession(options =>
 {
@@ -14,19 +25,16 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// Add Entity Framework with SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? 
                      "Data Source=municipal_services.db"));
 
-// Register services
 builder.Services.AddScoped<RecommendationService>();
 builder.Services.AddScoped<IssueManager>();
 builder.Services.AddScoped<EventManager>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -40,7 +48,6 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapRazorPages();
 
-// Initialize database and sample data
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -49,13 +56,9 @@ using (var scope = app.Services.CreateScope())
     
     try
     {
-        // Ensure database is created
         context.Database.EnsureCreated();
-        
-        // Initialize sample data
         await issueManager.InitializeSampleDataAsync();
         await eventManager.InitializeSampleDataAsync();
-        
         Console.WriteLine("Database initialized successfully with sample data.");
     }
     catch (Exception ex)

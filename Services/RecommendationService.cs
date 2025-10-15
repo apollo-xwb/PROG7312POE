@@ -1,18 +1,14 @@
 /*
-Academic Integrity and References
-
-AI assistance declaration:
-- Portions of the following methods were drafted with assistance from an AI programming assistant and then reviewed, adapted and validated by the author:
-  • GetPersonalizedRecommendationsAsync
-  • UpdateUserPreferencesAsync
-  • GetSearchAnalyticsAsync
-
-References:
-- Freeman, A. (n.d.) Pro ASP.NET Core Razor Pages in C#. New York: Apress.
-- Smith, J.P. (n.d.) Entity Framework Core in Action. Shelter Island, NY: Manning.
-- Microsoft (n.d.) ASP.NET Core Razor Pages. Available at: https://learn.microsoft.com/aspnet/core/razor-pages/?view=aspnetcore-8.0 (Accessed: 14 October 2025).
-- Microsoft (n.d.) Entity Framework Core – SQLite provider. Available at: https://learn.microsoft.com/ef/core/providers/sqlite/?tabs=dotnet-core-cli (Accessed: 14 October 2025).
-*/
+ * RecommendationService.cs - Intelligent Recommendation Engine
+ * 
+ * References:
+ * Microsoft Corporation (2024). ASP.NET Core Razor Pages. Available at: https://docs.microsoft.com/en-us/aspnet/core/razor-pages/
+ * Troelsen, A. & Japikse, P. (2022). Pro C# 10 with .NET 6. Apress.
+ * Microsoft Corporation (2024). Entity Framework Core. Available at: https://docs.microsoft.com/en-us/ef/core/
+ * 
+ * AI Assistance: Recommendation algorithm structure, preference scoring logic, and advanced data structure implementation guidance provided by AI assistant.
+ * Student implementation: Core business logic, database integration, and service architecture.
+ */
 using Microsoft.EntityFrameworkCore;
 using MunicipalServicesApp.Data;
 using MunicipalServicesApp.DataStructures;
@@ -43,21 +39,16 @@ namespace MunicipalServicesApp.Services
             _context = context;
         }
 
-        /// <summary>
-        /// Analyzes user search patterns and generates intelligent recommendations
-        /// </summary>
         public async Task<LinkedList<Event>> GetPersonalizedRecommendationsAsync(int maxRecommendations = 3)
         {
             var recommendations = new LinkedList<Event>();
 
             try
             {
-                // Get user preferences based on search history
                 var userPreferences = await GetUserPreferencesAsync();
                 
                 if (!userPreferences.Any())
                 {
-                    // If no preferences, return popular events - convert Queue to LinkedList
                     var popularEvents = await GetPopularEventsAsync(maxRecommendations);
                     var fallbackResult = new LinkedList<Event>();
                     foreach (var eventItem in popularEvents)
@@ -67,20 +58,18 @@ namespace MunicipalServicesApp.Services
                     return fallbackResult;
                 }
 
-                // Sort preferences by score (highest first)
                 var topPreferences = userPreferences
                     .OrderByDescending(p => p.PreferenceScore)
                     .ThenByDescending(p => p.SearchCount)
                     .Take(3)
                     .ToList();
 
-                // Get events for top preferred categories
                 foreach (var preference in topPreferences)
                 {
                     var prefCat = preference.Category.ToLower();
                     var categoryEvents = await _context.Events
                         .Where(e => e.Category.ToLower() == prefCat)
-                        .Where(e => e.Date >= DateTime.Now) // Only future events
+                        .Where(e => e.Date >= DateTime.Now)
                         .OrderBy(e => e.Date)
                         .Take(maxRecommendations)
                         .ToListAsync();
@@ -94,7 +83,6 @@ namespace MunicipalServicesApp.Services
                         break;
                 }
 
-                // If we don't have enough recommendations, fill with popular events
                 if (recommendations.Count < maxRecommendations)
                 {
                     var popularEvents = await GetPopularEventsAsync(maxRecommendations - recommendations.Count);
@@ -104,7 +92,6 @@ namespace MunicipalServicesApp.Services
                     }
                 }
 
-                // Return only the requested number of recommendations
                 var result = new LinkedList<Event>();
                 var count = 0;
                 foreach (var eventItem in recommendations)
@@ -117,7 +104,6 @@ namespace MunicipalServicesApp.Services
             }
             catch (Exception ex)
             {
-                // Log error and return popular events as fallback - convert Queue to LinkedList
                 Console.WriteLine($"Error generating recommendations: {ex.Message}");
                 var popularEvents = await GetPopularEventsAsync(maxRecommendations);
                 var errorResult = new LinkedList<Event>();

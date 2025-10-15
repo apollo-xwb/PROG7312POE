@@ -108,6 +108,20 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
+                    <h5 class="mb-0">💡 Tips</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">📍 Be specific about location</li>
+                        <li class="mb-2">📸 Include photos if possible</li>
+                        <li class="mb-2">📝 Provide detailed descriptions</li>
+                        <li class="mb-2">🏆 Earn 10 points per report!</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
                     <h5 class="mb-0">📋 Recent Issues</h5>
                 </div>
                 <div class="card-body">
@@ -134,20 +148,6 @@
                     }
                 </div>
             </div>
-            
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h5 class="mb-0">💡 Tips</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2">📍 Be specific about location</li>
-                        <li class="mb-2">📸 Include photos if possible</li>
-                        <li class="mb-2">📝 Provide detailed descriptions</li>
-                        <li class="mb-2">🏆 Earn 10 points per report!</li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -162,6 +162,44 @@
                 awardPoints();
             });
             </text>
+        }
+
+        // File validation
+        document.getElementById('AttachedFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                validateFile(file);
+            }
+        });
+
+        function validateFile(file) {
+            const maxSize = 10 * 1024 * 1024; // 10MB
+            const allowedTypes = [
+                'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/bmp',
+                'application/pdf',
+                'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            ];
+            
+            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.pdf', '.doc', '.docx'];
+            const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+            
+            let errorMessage = '';
+            
+            if (file.size > maxSize) {
+                errorMessage = 'File size exceeds 10MB limit. Please choose a smaller file.';
+            } else if (!allowedTypes.includes(file.type)) {
+                errorMessage = 'Invalid file type. Only images, PDF, and Word documents are allowed.';
+            } else if (!allowedExtensions.includes(fileExtension)) {
+                errorMessage = 'Invalid file extension. Please choose a valid file type.';
+            }
+            
+            if (errorMessage) {
+                alert('File Validation Error: ' + errorMessage);
+                document.getElementById('AttachedFile').value = '';
+                return false;
+            }
+            
+            return true;
         }
     </script>
 }
