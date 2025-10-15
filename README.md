@@ -2,6 +2,8 @@
 
 The Western Cape Municipal Services Portal serves as a web application the municipal services for the local municipality, featuring options to report issues, see local events with the use of advanced data structures as well as algorithmic reccomendations.
 
+YOUTUBE VIDEO: https://youtu.be/zmgCPwV_TFM
+
 ## South Afrcian Overview
 
 The Western Cape Municipal Services Portal is a web-based solution meant to bridge the gap between local municipalities and SOuth African residents. The portal provides:
