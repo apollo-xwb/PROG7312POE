@@ -9,7 +9,7 @@ The Western Cape Municipal Services Portal is a web-based solution meant to brid
 1. **Issue Reporting System** - Municipal issues can be reported by citizens with the ability to upload attachments with some gamification features.
 2. **Local Events & Announcements** - Community members can discover, add, and search for local events with algorithmic powered recommendations
 
-## 🚀 Features
+## Features
 
 ### Issue Reporting
 - **Form Validation**: Location, Category, Description with attachment support
@@ -23,7 +23,7 @@ The Western Cape Municipal Services Portal is a web-based solution meant to brid
 - **Smart Recommendations**: Algorithmic powered search suggestions based on user search patterns
 - **Analytics**: Search statistics and user preference tracking
 
-## 🛠️ Technical Stack
+## Technical Stack
 
 - **Framework**: ASP.NET Core 8.0 (Razor Pages)
 - **Database**: SQLite with Entity Framework Core
@@ -63,7 +63,7 @@ MunicipalServicesApp/
 └── Program.cs                      # Application configuration
 ```
 
-## 🏗️ Advanced Data Structures
+## Advanced Data Structures
 
 ### Stack Implementation
 - **Issue Management**: LIFO processing for recent issues display
@@ -85,7 +85,7 @@ MunicipalServicesApp/
 - **Unique Categories**: Efficient category deduplication
 - **Search Terms**: Unique search term tracking
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 - .NET 8.0 SDK or later
@@ -120,7 +120,7 @@ MunicipalServicesApp/
    - Open your web browser
    - Navigate to `http://localhost:5xxx` (port will be displayed in console)
 
-## 📖 Usage Guide
+## Usage Guide
 
 ### Home Page
 - Welcome message and navigation overview
@@ -141,7 +141,7 @@ MunicipalServicesApp/
 4. Get personalized recommendations based on your search history
 5. View analytics on the Analytics page
 
-## 🎯 Key Features
+## Key Features
 
 ### File Validation
 - **Size Limit**: 10MB maximum file size
@@ -160,7 +160,7 @@ MunicipalServicesApp/
 - **Points System**: 10 points per successful issue submission
 - **Encouragement**: Motivational messages during form completion
 
-## 🔧 Technical Features
+## Technical Features
 
 ### Error Handling
 - ModelState validation for all forms
@@ -180,7 +180,7 @@ MunicipalServicesApp/
 - SQL injection prevention through Entity Framework
 - XSS protection through Razor Pages
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -197,7 +197,7 @@ MunicipalServicesApp/
    - Check file type is supported (images, PDF, Word documents)
    - Clear browser cache if validation errors persist
 
-## 📚 Academic Integrity and References
+## Academic Integrity and References
 
 ### AI Assistance Declaration
 
