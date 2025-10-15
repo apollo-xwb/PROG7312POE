@@ -121,6 +121,7 @@
                                         <h6 class="mb-1">@issue.Category</h6>
                                         <small>@issue.SubmittedDate.ToString("MMM dd")</small>
                                     </div>
+                                    <small class="text-muted d-block">ID: @issue.Id</small>
                                     <p class="mb-1">@issue.Location</p>
                                     <small class="text-muted">@issue.Description.Substring(0, Math.Min(issue.Description.Length, 50))...</small>
                                 </div>
