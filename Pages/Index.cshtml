@@ -1,0 +1,104 @@
+@page
+@model MunicipalServicesApp.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+    Layout = "_Layout";
+}
+
+
+<div class="text-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="display-4 mb-3 hero-title">🇿🇦 Welcome to Western Cape Municipal Services!</h1>
+                <p class="lead mb-5 hero-subtitle">Service Delivery Begins Here. Select a task below to get started.</p>
+                
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <div class="text-center mb-3">
+                                    <i class="bi bi-exclamation-triangle" style="font-size: 3rem; color: #DC2626;"></i>
+                                </div>
+                                <h5 class="card-title">Report an Issue</h5>
+                                <p class="card-text">Report municipal issues such as sanitation problems, potholes or utility issues. Earn points for making a report!</p>
+                                <div class="mt-auto">
+                                    <a href="/ReportIssue" class="btn btn-primary btn-lg w-100">
+                                        Report Issue
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <div class="text-center mb-3">
+                                    <i class="bi bi-calendar-event" style="font-size: 3rem; color: #059669;"></i>
+                                </div>
+                                <h5 class="card-title">Events Around You & Announcements</h5>
+                                <p class="card-text">Discover events in the community, municipal meetings, or recent local announcements. Search and get personalized recommendations!</p>
+                                <div class="mt-auto">
+                                    <a href="/Events" class="btn btn-primary btn-lg w-100">
+                                        View Events
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card h-100 disabled-card" title="Coming soon">
+                            <div class="card-body d-flex flex-column">
+                                <div class="text-center mb-3">
+                                    <i class="bi bi-hourglass-split" style="font-size: 3rem; color: #9CA3AF;"></i>
+                                </div>
+                                <h5 class="card-title">Service Request Status</h5>
+                                <p class="card-text">If you've submitted a request, this is where the status of your submitted service can be tracked. Coming soon.</p>
+                                <div class="mt-auto">
+                                    <a href="#" class="btn btn-secondary btn-lg w-100 disabled" tabindex="-1" aria-disabled="true">Coming Soon</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">About The Western Cape Municipal Services Portal</h5>
+                                <p class="card-text">
+                                    This is a platform meant to connect South African residents with their local municipality. 
+                                    Whether you need infrastructure issues to attended to or stay informed about events around your community, 
+                                    it is our obligation to ensure your municipality works better for you.
+                                </p>
+                                <div class="row text-center mt-3">
+                                    <div class="col-md-4">
+                                        <strong>🏘️ Community Focused</strong><br>
+                                        <small class="text-muted">Built for all South African communities</small>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>⚡ Rapid & Easy</strong><br>
+                                        <small class="text-muted">Simple reporting and discovery</small>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>🎯 Gamified Experience</strong><br>
+                                        <small class="text-muted">Earn points for reporting issues</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4 mb-2">
+                    <div class="col-12 text-center">
+                        <img src="~/images/CPT Logo.png" alt="City of Cape Town" class="home-footer-logo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
