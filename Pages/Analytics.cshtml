@@ -1,0 +1,176 @@
+@page
+@model MunicipalServicesApp.Pages.AnalyticsModel
+@{
+    ViewData["Title"] = "Search Analytics & Recommendations";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h2 class="mb-4">📊 Search Analytics & Recommendations</h2>
+
+    <!-- Alerts -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row">
+        <!-- Search Analytics -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">📈 Search Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <h3 class="text-primary">@Model.TotalSearches</h3>
+                            <p class="text-muted">Total Searches</p>
+                        </div>
+                        <div class="col-6">
+                            <h3 class="text-success">@Model.SuccessRate.ToString("F1")%</h3>
+                            <p class="text-muted">Success Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Categories -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">🏆 Most Searched Categories</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.TopCategories.Any())
+                    {
+                        <div class="list-group">
+                            @foreach (var category in Model.TopCategories)
+                            {
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary me-2">@category.Category</span>
+                                    <span class="badge bg-secondary">@category.Count searches</span>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No search data available yet.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Searches -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">🕒 Recent Searches</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentSearches.Any())
+                    {
+                        <div class="list-group">
+                            @foreach (var search in Model.RecentSearches)
+                            {
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">
+                                            @if (!string.IsNullOrEmpty(search.SearchTerm))
+                                            {
+                                                <span class="badge bg-info me-1">@search.SearchTerm</span>
+                                            }
+                                            @if (!string.IsNullOrEmpty(search.Category))
+                                            {
+                                                <span class="badge bg-primary me-1">@search.Category</span>
+                                            }
+                                        </h6>
+                                        <small>@search.SearchDate.ToString("MMM dd, HH:mm")</small>
+                                    </div>
+                                    <p class="mb-1">
+                                        <small class="text-muted">
+                                            Type: @search.SearchType | 
+                                            Results: @search.ResultCount
+                                        </small>
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No recent searches available.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personalized Recommendations -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">🎯 Personalized Recommendations</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Recommendations.Any())
+                    {
+                        <div class="row">
+                            @foreach (var recommendation in Model.Recommendations)
+                            {
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h6 class="card-title">@recommendation.Title</h6>
+                                            <p class="card-text">@recommendation.Description</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="badge bg-primary">@recommendation.Category</span>
+                                                <small class="text-muted">@recommendation.Date.ToString("MMM dd, yyyy")</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <p class="text-muted">No personalized recommendations available yet. Start searching to get recommendations!</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <a href="/Events" class="btn btn-primary me-2">View All Events</a>
+            <a href="/SearchEvents" class="btn btn-success me-2">Search Events</a>
+            <a href="/AddEvent" class="btn btn-info">Add New Event</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-refresh analytics every 30 seconds
+        setInterval(function() {
+            location.reload();
+        }, 30000);
+    </script>
+}

@@ -1,0 +1,166 @@
+@page
+@model MunicipalServicesApp.Pages.ReportIssueModel
+@{
+    ViewData["Title"] = "Report Issue";
+    Layout = "_Layout";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="mb-4">🚨 Report a Municipal Issue</h2>
+            
+            <!-- Points + Progress Panel -->
+            <div class="panel-overlay mb-4">
+                <!-- Points Display -->
+                <div class="points-display mb-3" id="pointsDisplay">
+                    Total Points: 0
+                </div>
+
+                <!-- Progress Bar -->
+                <span class="section-title-chip">Form Completion Progress</span>
+                <div class="progress">
+                    <div class="progress-bar" id="progressBar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+                <div class="encouragement-message mt-2" id="encouragementMessage" style="display: none;"></div>
+            </div>
+            
+            <!-- Alerts -->
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            
+            <!-- Issue Report Form -->
+            <form id="reportForm" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label asp-for="IssueInput.Location" class="form-label">
+                                <strong>Location</strong> <span class="text-danger">*</span>
+                            </label>
+                            <input name="IssueInput.Location" class="form-control" id="Location" 
+                                   placeholder="e.g., Cape Town CBD, Long Street" 
+                                   title="Enter the specific location where the issue occurred" />
+                            <span asp-validation-for="IssueInput.Location" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="IssueInput.Category" class="form-label">
+                                <strong>Category</strong> <span class="text-danger">*</span>
+                            </label>
+                            <select name="IssueInput.Category" class="form-select" id="Category" 
+                                    title="Select the type of municipal issue">
+                                <option value="">-- Select Category --</option>
+                                <option value="Sanitation">Sanitation</option>
+                                <option value="Roads">Roads</option>
+                                <option value="Utilities">Utilities</option>
+                            </select>
+                            <span asp-validation-for="IssueInput.Category" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="IssueInput.Description" class="form-label">
+                                <strong>Description</strong> <span class="text-danger">*</span>
+                            </label>
+                            <textarea name="IssueInput.Description" class="form-control" id="Description" 
+                                      rows="4" placeholder="Please provide a detailed description of the issue..."
+                                      title="Describe the issue in detail to help municipal staff understand the problem"></textarea>
+                            <span asp-validation-for="IssueInput.Description" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="AttachedFile" class="form-label">
+                                <strong>File Attachment</strong> <small class="text-muted">(Optional)</small>
+                            </label>
+                            <input name="AttachedFile" type="file" class="form-control" id="AttachedFile" 
+                                   accept="image/*,.pdf,.doc,.docx" 
+                                   title="Upload photos or documents related to the issue" />
+                            <div class="form-text">Supported formats: Images, PDF, Word documents (Max 10MB)</div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-secondary me-md-2" onclick="clearForm()">
+                                Clear Form
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Submit Issue Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">📋 Recent Issues</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentIssues.Any())
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var issue in Model.RecentIssues)
+                            {
+                                <div class="list-group-item px-0">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@issue.Category</h6>
+                                        <small>@issue.SubmittedDate.ToString("MMM dd")</small>
+                                    </div>
+                                    <p class="mb-1">@issue.Location</p>
+                                    <small class="text-muted">@issue.Description.Substring(0, Math.Min(issue.Description.Length, 50))...</small>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No recent issues reported.</p>
+                    }
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="mb-0">💡 Tips</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">📍 Be specific about location</li>
+                        <li class="mb-2">📸 Include photos if possible</li>
+                        <li class="mb-2">📝 Provide detailed descriptions</li>
+                        <li class="mb-2">🏆 Earn 10 points per report!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Award points when form is successfully submitted
+        @if (TempData["PointsAwarded"] != null)
+        {
+            <text>
+            document.addEventListener('DOMContentLoaded', function() {
+                awardPoints();
+            });
+            </text>
+        }
+    </script>
+}
