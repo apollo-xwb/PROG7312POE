@@ -1,0 +1,23 @@
+## Build artifacts
+bin/
+obj/
+
+## User-specific
+*.user
+*.suo
+.vs/
+
+## OS files
+Thumbs.db
+Desktop.ini
+
+## Logs
+*.log
+
+## Rider/VSCode
+.idea/
+.vscode/
+
+## Publish output
+wwwroot/dist/
+

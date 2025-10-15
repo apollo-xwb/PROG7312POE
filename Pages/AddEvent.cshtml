@@ -1,0 +1,103 @@
+@page
+@model MunicipalServicesApp.Pages.AddEventModel
+@{
+    ViewData["Title"] = "Add Event";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h2 class="mb-4">➕ Add New Event</h2>
+    
+    <!-- Alerts -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label for="NewEvent_Title" class="form-label">
+                                <strong>Event Title</strong> <span class="text-danger">*</span>
+                            </label>
+                            <input name="NewEvent.Title" id="NewEvent_Title" class="form-control" 
+                                   placeholder="e.g., Community Meeting" />
+                            <span asp-validation-for="NewEvent.Title" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="NewEvent_Date" class="form-label">
+                                <strong>Event Date</strong> <span class="text-danger">*</span>
+                            </label>
+                            <input name="NewEvent.Date" id="NewEvent_Date" class="form-control" type="date" />
+                            <span asp-validation-for="NewEvent.Date" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="NewEvent_Category" class="form-label">
+                                <strong>Category</strong> <span class="text-danger">*</span>
+                            </label>
+                            <select name="NewEvent.Category" id="NewEvent_Category" class="form-select">
+                                <option value="">-- Select Category --</option>
+                                <option value="Community">Community</option>
+                                <option value="Culture">Culture</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Environment">Environment</option>
+                                <option value="Health">Health</option>
+                                <option value="Infrastructure">Infrastructure</option>
+                                <option value="Safety">Safety</option>
+                            </select>
+                            <span asp-validation-for="NewEvent.Category" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="NewEvent_Description" class="form-label">
+                                <strong>Description</strong> <span class="text-danger">*</span>
+                            </label>
+                            <textarea name="NewEvent.Description" id="NewEvent_Description" class="form-control" rows="3" 
+                                      placeholder="Describe the event..."></textarea>
+                            <span asp-validation-for="NewEvent.Description" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/Events" class="btn btn-secondary me-md-2">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Add Event</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">💡 Tips</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">📝 Use clear, descriptive titles</li>
+                        <li class="mb-2">📅 Set appropriate dates</li>
+                        <li class="mb-2">🏷️ Choose relevant categories</li>
+                        <li class="mb-2">📋 Provide detailed descriptions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
