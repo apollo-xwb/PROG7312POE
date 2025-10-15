@@ -177,6 +177,13 @@ body .navbar .nav-link {
     opacity: 0.95;
 }
 
+/* Footer logo sizing */
+.footer-logo {
+    height: 28px;
+    width: auto;
+    opacity: 0.95;
+}
+
 /* Small title chip for sections placed over imagery */
 .section-title-chip {
     background: #ffffff;
