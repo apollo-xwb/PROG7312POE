@@ -201,7 +201,7 @@ MunicipalServicesApp/
 
 ### AI Assistance Declaration
 
-The following areas received guidance from an AI programming assistant; all code was reviewed, adapted, and validated by the student:
+The following areas received guidance from Claude (Anthropic, 2024), an AI programming assistant; all code was reviewed, adapted, and validated by the student:
 
 - **File Validation Logic**: File type checking, size validation, and security measures
 - **Advanced Data Structure Implementation**: Stack ordering, Queue processing, LinkedList operations
@@ -225,6 +225,9 @@ The following areas received guidance from an AI programming assistant; all code
 **Videos:**
 - IAmTimCorey (2024). Entity Framework Core Tutorials. YouTube. Available at: https://www.youtube.com/watch?v=qkJ9keBmQWo
 - Raw Coding (2024). ASP.NET Core Razor Pages Tutorials. YouTube. Available at: https://youtu.be/W5T6713KRzg?si=el5RBXEhAepqnyTp
+
+**AI Assistant:**
+- Anthropic (2024). Claude AI Assistant. Available at: https://claude.ai/
 
 ---
 

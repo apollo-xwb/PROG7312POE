@@ -6,7 +6,7 @@
  * Troelsen, A. & Japikse, P. (2022). Pro C# 10 with .NET 6. Apress.
  * Microsoft Corporation (2024). Entity Framework Core. Available at: https://docs.microsoft.com/en-us/ef/core/
  * 
- * AI Assistance: Advanced data structure conversion patterns and analytics implementation guidance provided by AI assistant.
+ * AI Assistance: Advanced data structure conversion patterns and analytics implementation guidance provided by Claude (Anthropic, 2024).
  * My implementation: Core business logic, UI integration, and analytics functionality.
  * 
  * Prompt used: "can you suggest a more efficient way to implement this? the method i used is not efficient and it causes errors when running" - referring to converting List<T> to advanced data structures (LinkedList, Stack, Queue, etc.)

@@ -6,7 +6,7 @@
  * Troelsen, A. & Japikse, P. (2022). Pro C# 10 with .NET 6. Apress.
  * Microsoft Corporation (2024). Entity Framework Core. Available at: https://docs.microsoft.com/en-us/ef/core/
  * 
- * AI Assistance: File validation logic and Stack data structure implementation guidance
+ * AI Assistance: File validation logic and Stack data structure implementation guidance provided by Claude (Anthropic, 2024)
  * My implementation: Core business logic, UI integration, and error handling.
  * 
  * Prompt used: "my stack is causing errors once the report is issued. how do i fix this implementation? refer to the screenshot" - referring to converting List<T> to advanced data structures (LinkedList, Stack, Queue, etc.)

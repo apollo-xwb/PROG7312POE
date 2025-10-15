@@ -6,7 +6,7 @@
  * Troelsen, A. & Japikse, P. (2022). Pro C# 10 with .NET 6. Apress.
  * Microsoft Corporation (2024). Entity Framework Core. Available at: https://docs.microsoft.com/en-us/ef/core/
  * 
- * AI Assistance: Dependency injection configuration and database initialization patterns provided by AI assistant.
+ * AI Assistance: Dependency injection configuration and database initialization patterns provided by Claude (Anthropic, 2024).
  * Student implementation: Service registration, middleware configuration, and application architecture.
  */
 
